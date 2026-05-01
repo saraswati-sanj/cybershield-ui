@@ -28,13 +28,12 @@ async function analyzeTweet() {
 
   try {
     // Gradio Blocks API — fn_index 0 = first click function (predict)
-    const response = await fetch(`${HF_SPACE}/run/predict`, {
+    const response = await fetch(`${HF_SPACE}/api/predict`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        fn_index: 0,
-        data: [text]
-      })
+  data: [text]
+})
     });
 
     if (!response.ok) {
