@@ -31,15 +31,19 @@ async function analyzeTweet() {
   showState("spinner");
 
   try {
-    const response = await fetch(`${HF_SPACE}/run/predict`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        data: [text]
-      })
-    });
+    // 🔥 PROXY FIX APPLIED HERE
+    const response = await fetch(
+      `https://corsproxy.io/?${HF_SPACE}/run/predict`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: [text]
+        })
+      }
+    );
 
     console.log("STATUS:", response.status);
 
