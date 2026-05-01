@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield — Tweet Cyberbullying Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Glow orbs -->
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="shield-icon">🛡️</div>
+    Cyber<span class="accent">Shield</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#detect">Detect</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('detect').scrollIntoView({behavior:'smooth'})">Try Now →</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    AI-Powered Cyberbullying Detection
+  </div>
+
+  <h1>
+    Detect Online<br>
+    <span class="line-accent">Cyberbullying</span>
+    Instantly
+  </h1>
+
+  <p class="hero-sub">
+    Paste any tweet and CyberShield's AI analyzes it in seconds — flagging harmful language, hate speech, and bullying patterns with precision.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#detect" class="btn-primary">🔍 Analyze a Tweet</a>
+    <a href="#how" class="btn-outline">How It Works</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">94%</span>
+      <span class="label">Detection Accuracy</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">&lt;2s</span>
+      <span class="label">Analysis Time</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">8+</span>
+      <span class="label">Threat Indicators</span>
+    </div>
+  </div>
+</section>
+
+<!-- DETECT TOOL -->
+<section id="detect">
+  <div class="section-label">02 — Detection Tool</div>
+  <h2 class="section-title">Analyze a Tweet</h2>
+  <p class="section-sub">Paste the tweet text below and let our AI assess it for signs of cyberbullying or harmful behavior.</p>
+
+  <div class="detect-grid">
+    <!-- Input Panel -->
+    <div class="detect-panel">
+      <div class="detect-panel-header">
+        <span class="panel-title">🐦 Tweet Input</span>
+        <span class="char-count" id="charCount">0 / 280</span>
+      </div>
+
+      <textarea
+        class="tweet-input"
+        id="tweetInput"
+        placeholder="Paste or type a tweet here… e.g. 'You're so ugly nobody likes you'"
+        maxlength="560"
+      ></textarea>
+
+      <div class="example-tweets">
+        <div class="example-label">Try an example</div>
+        <div class="examples-row">
+          <span class="example-chip" onclick="loadExample(this)">You're worthless 😤</span>
+          <span class="example-chip" onclick="loadExample(this)">Everyone hates you, just quit</span>
+          <span class="example-chip" onclick="loadExample(this)">Great work on the project today!</span>
+          <span class="example-chip" onclick="loadExample(this)">You should just disappear</span>
+          <span class="example-chip" onclick="loadExample(this)">Happy birthday! Hope your day is amazing</span>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" onclick="analyzeTweet()">
+        <span id="btnText">🔍 Analyze Tweet</span>
+      </button>
+    </div>
+
+    <!-- Result Panel -->
+    <div class="result-panel" id="resultPanel">
+      <div class="panel-title" style="margin-bottom:1.25rem;">📊 Analysis Result</div>
+
+      <div class="result-idle" id="idleState">
+        <div class="idle-icon">🛡️</div>
+        <p>Enter a tweet and click Analyze to see results</p>
+      </div>
+
+      <div class="spinner" id="spinnerState">
+        <div class="spin-ring"></div>
+        <span>Analyzing tweet…</span>
+      </div>
+
+      <div class="result-content" id="resultContent">
+        <div id="verdictBadge" class="verdict-badge"></div>
+
+        <div class="confidence-section">
+          <div class="conf-label">Confidence Score</div>
+          <div class="conf-bar-bg">
+            <div class="conf-bar-fill" id="confBar" style="width: 0%;"></div>
+          </div>
+          <div class="conf-value" id="confValue">—</div>
+        </div>
+
+        <div class="indicators-grid" id="indicatorsGrid"></div>
+
+        <div class="ai-summary" id="aiSummary"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">03 — Process</div>
+  <h2 class="section-title">How CyberShield Works</h2>
+  <p class="section-sub">Four steps from raw tweet to confident verdict — all in under two seconds.</p>
+
+  <div class="steps-grid">
+    <div class="step-card fade-in">
+      <div class="step-num">01</div>
+      <span class="step-icon">📥</span>
+      <h3>Tweet Input</h3>
+      <p>You paste the tweet text. CyberShield accepts any English-language tweet up to 560 characters.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">02</div>
+      <span class="step-icon">🧹</span>
+      <h3>Pre-processing</h3>
+      <p>The text is cleaned — slang normalized, hashtags parsed, emojis decoded — for accurate model input.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">03</div>
+      <span class="step-icon">🧠</span>
+      <h3>AI Analysis</h3>
+      <p>Our NLP model scans for threat patterns, toxicity signals, personal attacks, and hate speech markers.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">04</div>
+      <span class="step-icon">📊</span>
+      <h3>Verdict + Report</h3>
+      <p>A confidence-scored verdict is returned with a breakdown of each detected indicator and a plain-language summary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">04 — Capabilities</div>
+  <h2 class="section-title">What CyberShield Detects</h2>
+  <p class="section-sub">A multi-dimensional analysis engine trained on real-world bullying datasets.</p>
+
+  <div class="features-grid">
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">🎯</div>
+      <h3>Personal Attacks</h3>
+      <p>Detects direct insults targeting an individual's appearance, intelligence, or identity with high precision.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">💀</div>
+      <h3>Threats & Harm</h3>
+      <p>Flags language that encourages self-harm, exclusion, or physical threats — even when phrased subtly.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">🔥</div>
+      <h3>Hate Speech</h3>
+      <p>Identifies slurs and group-targeted harassment across race, gender, sexuality, religion, and more.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">😠</div>
+      <h3>Toxicity Scoring</h3>
+      <p>Assigns a 0–100 toxicity score so you can set your own threshold for moderation pipelines.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">🧩</div>
+      <h3>Context Awareness</h3>
+      <p>Understands sarcasm, coded language, and emoji-heavy messages that trip up keyword filters.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon-wrap">⚡</div>
+      <h3>Real-time Results</h3>
+      <p>Analysis completes in under 2 seconds — fast enough for live moderation queues and browser extensions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">05 — About</div>
+  <h2 class="section-title">Why We Built This</h2>
+
+  <div class="about-grid">
+    <div class="about-visual fade-in">
+      <div class="avatar-shield">🛡️</div>
+      <h3>CyberShield</h3>
+      <p>Built to make the internet safer — one tweet at a time. Our mission is to give individuals, schools, and platforms a reliable tool to identify cyberbullying before it causes harm.</p>
+      <div class="tech-pills">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">NLP</span>
+        <span class="tech-pill">Twitter API</span>
+        <span class="tech-pill">Scikit-learn</span>
+        <span class="tech-pill">Flask</span>
+        <span class="tech-pill">TensorFlow</span>
+      </div>
+    </div>
+
+    <div class="about-text fade-in">
+      <p>Cyberbullying affects <strong>over 40% of young people online</strong>, and most platforms rely on slow, manual reporting to catch it. CyberShield changes that.</p>
+      <p>By applying <strong>natural language processing and machine learning</strong> directly to tweet content, we can detect harmful patterns instantly — whether it's a direct insult, a coordinated pile-on, or a subtle threat disguised as a joke.</p>
+      <p>The tool is designed to be transparent: every verdict comes with a <strong>confidence score and indicator breakdown</strong> so you understand exactly why a tweet was flagged. No black boxes.</p>
+      <p>Whether you're a researcher studying online harm, a school counselor monitoring student safety, or a developer building a safer platform — <strong>CyberShield is built for you.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="justify-content:center;">07 — Contact</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <p class="section-sub" style="margin:0 auto 0;">Have questions, feedback, or want to integrate CyberShield into your platform?</p>
+
+  <div class="contact-card">
+    <p style="color:var(--text-secondary); font-size:1rem;">Fill in the form below and we'll get back to you within 24 hours.</p>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="Alex Johnson">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" placeholder="alex@example.com">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Subject</label>
+        <input class="form-input" type="text" placeholder="API Integration / Research Collaboration / Bug Report">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us what you're building or what you'd like to know…"></textarea>
+      </div>
+      <button class="form-submit" onclick="handleContactSubmit(event)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <span style="color:var(--text-secondary);">🛡️ <strong style="color:var(--text-primary);">CyberShield</strong></span>
+    &nbsp;·&nbsp; Making the internet safer, one tweet at a time.
+  </div>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#detect">Detect</a>
+    <a href="#how">How It Works</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div>Built with ❤️ · 2026</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
